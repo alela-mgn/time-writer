@@ -1,4 +1,4 @@
-package com.example.timewriter;
+package com.leon.timewriter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

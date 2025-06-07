@@ -1,4 +1,4 @@
-package com.example.timewriter;
+package com.leon.timewriter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
