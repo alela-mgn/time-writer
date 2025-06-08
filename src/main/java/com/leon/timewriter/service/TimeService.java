@@ -43,13 +43,27 @@ public class TimeService {
         lock.lock();
         try {
             while (!buffer.isEmpty()) {
-                repository.save(buffer.poll());
+                Time buffered = buffer.poll();
+                try {
+                    repository.save(buffered);
+                    logger.debug("Saved buffered time: {}", buffered.getTimestamp());
+                } catch (Exception e) {
+                    logger.error("Failed to save, buffering timestamp: {}", buffered.getTimestamp(), e);
+                    buffer.add(buffered);
+                    retryingService.checkConnection();
+                    return;
+                }
             }
-            repository.save(timeEntity);
-            logger.debug("Saved timeEntity: {}", now);
-        } catch (Exception e) {
-            buffer.add(timeEntity);
-            logger.error("Failed to save, buffering: {}", now, e);
+
+            try {
+                repository.save(timeEntity);
+                logger.debug("Saved timeEntity: {}", now);
+            } catch (Exception e) {
+                logger.error("Error saving current timestamp: {}", now, e);
+                buffer.add(timeEntity);
+                retryingService.checkConnection();
+            }
+
         } finally {
             lock.unlock();
         }

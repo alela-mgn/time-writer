@@ -32,7 +32,6 @@ public class TimeStressTest {
             executor.submit(() -> service.writeTime());
         }
 
-        // Подожди, чтобы всё завершилось
         Thread.sleep(5000);
         executor.shutdown();
     }
