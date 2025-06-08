@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: vlad
+      changes:
+        - dropUniqueConstraint:
+            constraintName: time_entries_timestamp_key
+            tableName: time_entries

@@ -13,10 +13,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/*
-todo пофиксить тест
- */
-
 @SpringBootTest
 @Testcontainers
 public class TimeIntegrationTest {
